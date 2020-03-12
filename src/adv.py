@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -21,7 +22,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -38,6 +38,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player(input("Enter your name: "),room['outside'])
+print(f"Hello {player.name}")
 
 # Write a loop that:
 #
@@ -49,3 +51,30 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+while True:
+    print(player.current_room.name)
+    print(player.current_room.description)
+    movement = input("\n Which direction do you want to go ? Type 'n', 'e', 's' , 'w' OR 'q' to quit: ")
+    if movement == "q":
+        print("Goodbye...")
+        exit(0)
+    elif movement == "n":
+        if player.current_room.n_to is not None:
+            player.current_room = player.current_room.n_to
+        else: print("you cant go that way")
+    elif movement == "e":
+        if player.current_room.e_to is not None:
+            player.current_room = player.current_room.e_to
+        else: print("you cant go that way")
+    elif movement == "s":
+        if player.current_room.s_to is not None:
+            player.current_room = player.current_room.s_to
+        else: print("you cant go that way")
+    elif movement == "w":
+        if player.current_room.w_to is not None:
+            player.current_room = player.current_room.w_to
+        else: print("you cant go that way")
+    else:
+        print("wrong command")
+
